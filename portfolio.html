@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ครูไอที & นักวิชาการคอมพิวเตอร์ | Premium Interactive Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Sarabun & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Sarabun', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.15)',
+                        'glow': '0 0 25px rgba(59, 130, 246, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        .floating-shape {
+            animation: float 6s ease-in-out infinite;
+        }
+        .floating-shape-delayed {
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        /* CSS สำหรับการพิมพ์ CV */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #cv-print-area, #cv-print-area * {
+                visibility: visible;
+            }
+            #cv-print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white transition-colors duration-300">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-900 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-display text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent theme-text">IT ACADEMIC</span>
+                        <span class="text-[10px] px-2.5 py-0.5 bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 rounded-full font-sans font-semibold theme-badge">PORTFOLIO v3.0</span>
+                    </a>
+                </div>
+                <!-- Desktop Links & Mode Toggle -->
+                <div class="hidden md:flex items-center gap-6">
+                    <div class="flex items-baseline space-x-2">
+                        <a href="#home" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-semibold transition-colors">หน้าแรก</a>
+                        <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-semibold transition-colors">ประวัติ & ใบรับรอง</a>
+                        <a href="#skills" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-semibold transition-colors">ทักษะ</a>
+                        <a href="#projects" class="text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-semibold transition-colors">ผลงานนวัตกรรม</a>
+                    </div>
+                    
+                    <!-- Theme Toggle & Contact Button -->
+                    <div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-4">
+                        <button onclick="toggleDarkMode()" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors cursor-pointer" title="สลับโหมดสว่าง/มืด">
+                            <i id="dark-icon" class="fa-solid fa-sun text-lg text-amber-500"></i>
+                        </button>
+                        <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all shadow-md hover:shadow-lg theme-btn">ติดต่อพูดคุย</a>
+                    </div>
+                </div>
+                <!-- Mobile Action bar (Toggle + Menu) -->
+                <div class="flex md:hidden items-center gap-2">
+                    <button onclick="toggleDarkMode()" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" title="สลับโหมดสว่าง/มืด">
+                        <i id="dark-icon-mobile" class="fa-solid fa-sun text-lg text-amber-500"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-slate-600 dark:text-slate-300 hover:text-blue-600 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-900 px-4 pt-2 pb-4 space-y-1">
+            <a href="#home" class="block text-slate-600 dark:text-slate-300 hover:text-blue-600 py-2 rounded-md text-base font-semibold">หน้าแรก</a>
+            <a href="#about" class="block text-slate-600 dark:text-slate-300 hover:text-blue-600 py-2 rounded-md text-base font-semibold">ประวัติ & ใบรับรอง</a>
+            <a href="#skills" class="block text-slate-600 dark:text-slate-300 hover:text-blue-600 py-2 rounded-md text-base font-semibold">ทักษะ</a>
+            <a href="#projects" class="block text-slate-600 dark:text-slate-300 hover:text-blue-600 py-2 rounded-md text-base font-semibold">ผลงานนวัตกรรม</a>
+            <a href="#contact" class="block text-center bg-blue-600 text-white py-2.5 rounded-xl text-base font-semibold theme-btn">ติดต่อพูดคุย</a>
+        </div>
+    </nav>
+
+    <!-- Floating Theme Swapper Tool -->
+    <div class="fixed right-4 bottom-24 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-3 rounded-2xl shadow-premium border border-slate-100 dark:border-slate-800 flex flex-col gap-2 transition-all duration-300 transform hover:scale-105">
+        <span class="text-[9px] font-bold text-slate-400 text-center uppercase tracking-wider">โทนสีเว็บ</span>
+        <button onclick="setTheme('blue')" class="w-6 h-6 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900 ring-2 ring-blue-100 dark:ring-blue-950 cursor-pointer" title="น้ำเงินโปร"></button>
+        <button onclick="setTheme('emerald')" class="w-6 h-6 rounded-full bg-emerald-600 border-2 border-white dark:border-slate-900 cursor-pointer" title="เขียวเอิร์ธ"></button>
+        <button onclick="setTheme('amber')" class="w-6 h-6 rounded-full bg-amber-500 border-2 border-white dark:border-slate-900 cursor-pointer" title="ส้มวอร์ม"></button>
+        <button onclick="setTheme('rose')" class="w-6 h-6 rounded-full bg-rose-600 border-2 border-white dark:border-slate-900 cursor-pointer" title="ชมพูทิวลิป"></button>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden pt-12 pb-20 md:py-32">
+        <!-- Floating decorative tech shapes -->
+        <div class="absolute top-20 left-10 w-24 h-24 bg-blue-500/10 rounded-full blur-xl floating-shape"></div>
+        <div class="absolute bottom-10 right-20 w-36 h-36 bg-indigo-500/10 rounded-full blur-2xl floating-shape-delayed"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details Side -->
+                <div class="md:col-span-7 text-center md:text-left order-2 md:order-1">
+                    <span class="inline-flex items-center gap-1.5 py-1.5 px-3.5 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 mb-6 theme-badge">
+                        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                        พร้อมสำหรับการร่วมงานและการประเมินผลเชิงลึก
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-6">
+                        สวัสดีครับผม <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent theme-text">พุทธิพงษ์ แก้วมณี</span><br>
+                        <span class="text-blue-600 dark:text-blue-400 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent theme-text" id="typewriter"></span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mb-8 leading-relaxed">
+                        ยินดีต้อนรับคณะกรรมการผู้ทรงคุณวุฒิทุกท่านครับ เว็บไซต์นี้รวบรวมทักษะความเชี่ยวชาญ คลังผลงานด้านไอที-ระบบเครือข่าย นวัตกรรมการศึกษา และความตั้งใจจริงของผมในการขับเคลื่อนเทคโนโลยีดิจิทัลเชิงปฏิบัติ
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#projects" class="inline-flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl hover:shadow-blue-500/20 dark:hover:shadow-blue-900/30 transition-all hover:-translate-y-0.5 theme-btn">
+                            สำรวจผลงานนวัตกรรม <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <button onclick="openCVModal()" class="inline-flex justify-center items-center gap-2 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold px-6 py-3.5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 transition-all hover:-translate-y-0.5 cursor-pointer">
+                            <i class="fa-solid fa-file-pdf text-red-500"></i> ดู / พิมพ์ Resume (CV)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Visual Side -->
+                <div class="md:col-span-5 flex justify-center order-1 md:order-2">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                        <!-- Neon gradient circles under the image -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-3xl rotate-6 opacity-30 dark:opacity-40 blur-xl animate-pulse"></div>
+                        <div class="absolute inset-4 bg-gradient-to-tr from-cyan-400 to-blue-500 rounded-3xl -rotate-3 opacity-25 dark:opacity-30 blur-md"></div>
+                        <!-- Picture Frame with glass design -->
+                        <div class="absolute inset-0 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-3 rounded-3xl shadow-premium border border-slate-100/50 dark:border-slate-800/50 flex items-center justify-center overflow-hidden">
+                            <img src="https://placehold.co/400x400/3b82f6/ffffff?text=MY+AVATAR" alt="My Profile Avatar" id="profile-img" class="w-full h-full object-cover rounded-2xl bg-slate-100 dark:bg-slate-800">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About and Timeline Section -->
+    <section id="about" class="py-20 bg-white dark:bg-slate-900/30 border-y border-slate-100 dark:border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">ประวัติและใบรับรองความเชี่ยวชาญ</h2>
+                <div class="h-1.5 w-16 bg-blue-600 mx-auto mt-4 rounded-full theme-bg"></div>
+                <p class="mt-4 text-base text-slate-600 dark:text-slate-400">เป้าหมายเชิงกลยุทธ์และการผสานเครื่องมือไอทีเพื่อสร้างคุณประโยชน์สูงสุดในสถานศึกษาและองค์กร</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Personal Info Box -->
+                <div class="lg:col-span-5 bg-slate-50 dark:bg-slate-900/50 p-8 rounded-2xl border border-slate-100 dark:border-slate-800">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-address-card text-blue-600 dark:text-blue-400 theme-text"></i> ข้อมูลและแนวคิดการขับเคลื่อน
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed text-sm sm:text-base">
+                        ผมมุ่งมั่นในการสลายกำแพงความยากของคอมพิวเตอร์และเทคโนโลยี เปลี่ยนโจทย์งานหลังบ้านที่ยุ่งยากและปัญหาเครือข่ายให้เป็นระบบอัตโนมัติที่เข้าถึงได้ ปลอดภัย และเข้าใจง่าย ตลอดจนพร้อมสนับสนุนนวัตกรรมและฝึกอบรมดิจิทัลทุกรูปแบบ
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center theme-badge"><i class="fa-solid fa-user-tie"></i></div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-wider block">บทบาทงานปัจจุบัน</span>
+                                <span class="font-semibold text-slate-800 dark:text-slate-200 text-sm sm:text-base">นักวิชาการคอมพิวเตอร์ & ผู้สอนไอที</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center theme-badge"><i class="fa-solid fa-id-badge"></i></div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase tracking-wider block">ความสนใจเชิงลึก</span>
+                                <span class="font-semibold text-slate-800 dark:text-slate-200 text-sm sm:text-base">Web Development & AI Classroom Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Certificate Vault -->
+                <div class="lg:col-span-7">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-award text-blue-600 dark:text-blue-400 theme-text"></i> คลังใบรับรองเฉพาะทาง (Certificates)
+                    </h3>
+                    <p class="text-xs text-slate-400 dark:text-slate-500 mb-4">คลิกที่การ์ดเพื่อดูตัวอย่างใบรับรองขนาดใหญ่</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Cert 1 -->
+                        <div onclick="openCertModal('AI Framework Excellence', 'https://placehold.co/800x600/3b82f6/ffffff?text=AI+Framework+Certificate', 'ผ่านการประเมินทักษะการประยุกต์ใช้เครื่องมือปัญญาประดิษฐ์เพื่อการประมวลผลวิจัย')" class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-blue-500 dark:hover:border-blue-500 hover:scale-[1.02] transition-all cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="text-2xl text-blue-600"><i class="fa-solid fa-robot"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">AI Literacy Framework</h4>
+                                    <span class="text-[10px] text-slate-400 block">สมาคมนวัตกรรมดิจิทัล • 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cert 2 -->
+                        <div onclick="openCertModal('Cloud Computing Specialist', 'https://placehold.co/800x600/10b981/ffffff?text=Cloud+Computing+Certificate', 'ผ่านการอบรมการวางโครงสร้างคลาวด์และโฮสติ้งเซิร์ฟเวอร์ย่อยสำหรับสถานศึกษา')" class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-emerald-500 dark:hover:border-emerald-500 hover:scale-[1.02] transition-all cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="text-2xl text-emerald-600"><i class="fa-solid fa-cloud"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">Cloud Hosting Specialist</h4>
+                                    <span class="text-[10px] text-slate-400 block">อบรมการจัดการคลาวด์ • 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cert 3 -->
+                        <div onclick="openCertModal('PDPA Compliance in Education', 'https://placehold.co/800x600/f59e0b/ffffff?text=PDPA+Compliance+Certificate', 'การวางมาตรฐานความปลอดภัยข้อมูลส่วนบุคคล พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคลในระบบทะเบียนไอที')" class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-amber-500 dark:hover:border-amber-500 hover:scale-[1.02] transition-all cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="text-2xl text-amber-500"><i class="fa-solid fa-user-shield"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">PDPA Compliance in IT</h4>
+                                    <span class="text-[10px] text-slate-400 block">ความปลอดภัยข้อมูลระบบ • 2024</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Cert 4 -->
+                        <div onclick="openCertModal('Cyber Security Fundamentals', 'https://placehold.co/800x600/ef4444/ffffff?text=Cyber+Security+Certificate', 'ผ่านหลักสูตรการวิเคราะห์ช่องโหว่และการตั้งรับภัยคุกคามทางเครือข่ายอินเทอร์เน็ตระดับสากล')" class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-red-500 dark:hover:border-red-500 hover:scale-[1.02] transition-all cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <div class="text-2xl text-red-600"><i class="fa-solid fa-shield-virus"></i></div>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-900 dark:text-white">Cyber Security & Defense</h4>
+                                    <span class="text-[10px] text-slate-400 block">วิเคราะห์ความปลอดภัย • 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills and Interactive Details Section -->
+    <section id="skills" class="py-20 bg-slate-50 dark:bg-slate-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">ทักษะและการใช้งานจริง</h2>
+                <div class="h-1.5 w-16 bg-blue-600 mx-auto mt-4 rounded-full theme-bg"></div>
+                <p class="mt-4 text-base text-slate-600 dark:text-slate-400">คลิกเลือกการ์ดทักษะด้านล่างเพื่อแสดงตัวอย่างการแก้ปัญหาเชิงประจักษ์</p>
+            </div>
+
+            <!-- Interacting Skill Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Skill Group 1 -->
+                <div onclick="showSkillExplanation('db')" class="cursor-pointer group bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-premium border border-slate-100 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all hover:scale-105">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl mb-4 theme-badge"><i class="fa-solid fa-database"></i></div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">Database & Scripting</h3>
+                    <p class="text-xs text-slate-400 mb-4">การจัดการฐานข้อมูลและสคริปต์อัตโนมัติ (คลิกเพื่อดูการประยุกต์ใช้)</p>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="font-medium text-slate-700 dark:text-slate-300">SQL / DB Management</span><span class="text-blue-600 dark:text-blue-400 font-semibold theme-text">85%</span></div>
+                            <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 theme-bg rounded-full" style="width: 85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="font-medium text-slate-700 dark:text-slate-300">Sheets Automation & Script</span><span class="text-blue-600 dark:text-blue-400 font-semibold theme-text">90%</span></div>
+                            <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 theme-bg rounded-full" style="width: 90%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Group 2 -->
+                <div onclick="showSkillExplanation('network')" class="cursor-pointer group bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-premium border border-slate-100 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all hover:scale-105">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl mb-4 theme-badge"><i class="fa-solid fa-server"></i></div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">Network & IT Support</h3>
+                    <p class="text-xs text-slate-400 mb-4">การบำรุงรักษาฮาร์ดแวร์และแก้ปัญหาเครือข่าย (คลิกเพื่อดูการประยุกต์ใช้)</p>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="font-medium text-slate-700 dark:text-slate-300">Network Troubleshooting</span><span class="text-blue-600 dark:text-blue-400 font-semibold theme-text">90%</span></div>
+                            <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 theme-bg rounded-full" style="width: 90%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="font-medium text-slate-700 dark:text-slate-300">Hardware Maintenance</span><span class="text-blue-600 dark:text-blue-400 font-semibold theme-text">85%</span></div>
+                            <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 theme-bg rounded-full" style="width: 85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skill Group 3 -->
+                <div onclick="showSkillExplanation('innovation')" class="cursor-pointer group bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-premium border border-slate-100 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all hover:scale-105">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl mb-4 theme-badge"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">Digital Innovation</h3>
+                    <p class="text-xs text-slate-400 mb-4">นวัตกรรมสื่อการสอนและปัญญาประดิษฐ์ (คลิกเพื่อดูการประยุกต์ใช้)</p>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="font-medium text-slate-700 dark:text-slate-300">AI Tool Integration (ML)</span><span class="text-blue-600 dark:text-blue-400 font-semibold theme-text">80%</span></div>
+                            <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 theme-bg rounded-full" style="width: 80%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="font-medium text-slate-700 dark:text-slate-300">Design Thinking / UX UI</span><span class="text-blue-600 dark:text-blue-400 font-semibold theme-text">85%</span></div>
+                            <div class="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"><div class="h-full bg-blue-600 theme-bg rounded-full" style="width: 85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Dynamic Skill Description Panel (Wow Factor!) -->
+            <div id="skill-explanation-box" class="mt-8 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 transition-all duration-300 hidden">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/50 text-blue-600 dark:text-blue-300 flex items-center justify-center text-lg theme-badge"><i id="skill-icon-target" class="fa-solid fa-circle-question"></i></div>
+                    <div>
+                        <h4 id="skill-title-target" class="text-lg font-bold text-slate-900 dark:text-white">กรุณาเลือกทักษะ</h4>
+                        <p id="skill-desc-target" class="text-slate-600 dark:text-slate-300 mt-2 text-sm leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Soft Skills Highlight Sub-panel -->
+            <div class="mt-12 bg-white dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+                <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2 text-sm uppercase tracking-wide">
+                    <i class="fa-solid fa-user-check text-blue-600 theme-text"></i> Soft Skills เพื่อการขับเคลื่อนงานองค์กร
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-xl">
+                        <span class="text-2xl mb-2 block">🗣️</span>
+                        <h5 class="font-bold text-sm text-slate-900 dark:text-white">การสื่อสาร (Communication)</h5>
+                        <p class="text-xs text-slate-500 mt-1">อธิบายเทคนิคและขั้นตอนไอทีที่เข้าใจยากให้ง่าย เหมาะกับบุคคลทั่วไป</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-xl">
+                        <span class="text-2xl mb-2 block">🎓</span>
+                        <h5 class="font-bold text-sm text-slate-900 dark:text-white">การสอนงาน (Training)</h5>
+                        <p class="text-xs text-slate-500 mt-1">อบรมทักษะไอที จัดทำหลักสูตรนวัตกรรมดิจิทัลสำหรับบุคลากร</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-950 rounded-xl">
+                        <span class="text-2xl mb-2 block">🤝</span>
+                        <h5 class="font-bold text-sm text-slate-900 dark:text-white">ทีมเวิร์ก (Teamwork)</h5>
+                        <p class="text-xs text-slate-500 mt-1">ประสานงานร่วมกันในโปรเจกต์คอมพิวเตอร์และควบคุมเวทีวิจัยร่วมกัน</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white dark:bg-slate-950/30">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-4xl">ผลงานนวัตกรรมและโครงงานที่ภาคภูมิใจ</h2>
+                <div class="h-1.5 w-16 bg-blue-600 mx-auto mt-4 rounded-full theme-bg"></div>
+                <p class="mt-4 text-base text-slate-600 dark:text-slate-400">กรองเลือกประเภทผลงานที่ตรงความต้องการของคณะกรรมการเพื่อตรวจสอบข้อมูลอย่างสะดวกรวดเร็ว</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <button onclick="filterProjects('all')" class="project-filter-btn px-4 py-2 bg-blue-600 text-white rounded-full font-semibold text-xs shadow-md transition-all cursor-pointer theme-btn">ทั้งหมด</button>
+                <button onclick="filterProjects('it-support')" class="project-filter-btn px-4 py-2 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-semibold text-xs transition-all cursor-pointer">งานระบบ & IT Support</button>
+                <button onclick="filterProjects('academic')" class="project-filter-btn px-4 py-2 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-semibold text-xs transition-all cursor-pointer">การบริการวิชาการ & วิทยากร</button>
+                <button onclick="filterProjects('coaching')" class="project-filter-btn px-4 py-2 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-semibold text-xs transition-all cursor-pointer">ครูที่ปรึกษา & นวัตกรรม</button>
+            </div>
+
+            <!-- Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1 (IT Support) -->
+                <div class="project-card-item group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-premium hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1" data-category="it-support">
+                    <div class="relative h-48 bg-slate-100 dark:bg-slate-800 overflow-hidden flex items-center justify-center">
+                        <img src="https://placehold.co/600x400/3b82f6/ffffff?text=IT+NETWORK+SYSTEM" alt="Network System" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute top-4 left-4 bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase theme-badge">IT Support & Network</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">ระบบจัดการพัสดุคอมพิวเตอร์ออนไลน์</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">แก้ปัญหาพัสดุและการซ่อมบำรุงเครือข่ายองค์กร ด้วยแอปพลิเคชันออนไลน์พร้อมระบบติดตาม QR Code ที่สะดวกรวดเร็ว</p>
+                        <div class="mt-6">
+                            <button onclick="openModal('it-system-details')" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 text-xs font-semibold flex items-center gap-1.5 theme-text cursor-pointer">ดูรายละเอียดโครงการ <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 (Academic) -->
+                <div class="project-card-item group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-premium hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300 hover:-translate-y-1" data-category="academic">
+                    <div class="relative h-48 bg-slate-100 dark:bg-slate-800 overflow-hidden flex items-center justify-center">
+                        <img src="https://placehold.co/600x400/10b981/ffffff?text=DIGITAL+TRAINING" alt="Digital Training" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute top-4 left-4 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">Academic Services</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">โครงการอบรมความปลอดภัยไซเบอร์ในชุมชน</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">ร่วมเป็นวิทยากรบรรยายเทคนิคความมั่นคงปลอดภัยไซเบอร์และแนวทางปกป้องข้อมูลส่วนบุคคล (PDPA) ให้แก่บุคลากรและชุมชนท้องถิ่น</p>
+                        <div class="mt-6">
+                            <button onclick="openModal('academic-details')" class="text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 text-xs font-semibold flex items-center gap-1.5 cursor-pointer">ดูรายละเอียดโครงการ <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 (Coaching) -->
+                <div class="project-card-item group bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 rounded-2xl overflow-hidden shadow-premium hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 hover:-translate-y-1" data-category="coaching">
+                    <div class="relative h-48 bg-slate-100 dark:bg-slate-800 overflow-hidden flex items-center justify-center">
+                        <img src="https://placehold.co/600x400/f59e0b/ffffff?text=STUDENT+COACHING" alt="Student Coaching" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <span class="absolute top-4 left-4 bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">Coaching & Innovation</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">ทีมควบคุมโครงงานคอมพิวเตอร์คาร์บอนต่ำ</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">ทำหน้าที่คุณครูที่ปรึกษาและโค้ชโครงงานไอที ช่วยให้นักเรียนประดิษฐ์ซอฟต์แวร์จำลองคาร์บอนเครดิต ได้รับรางวัลชนะเลิศระดับภาค</p>
+                        <div class="mt-6">
+                            <button onclick="openModal('coaching-details')" class="text-amber-600 dark:text-amber-400 hover:text-amber-700 text-xs font-semibold flex items-center gap-1.5 cursor-pointer">ดูรายละเอียดโครงการ <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Modals (STAR Framework Integration) -->
+    <!-- Modal 1 (IT System Support) -->
+    <div id="it-system-details" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-950/75 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 max-h-[90vh] flex flex-col transition-all">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">รายละเอียดโครงการ: ระบบจัดการพัสดุคอมพิวเตอร์ออนไลน์</h3>
+                <button onclick="closeModal('it-system-details')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <img src="https://placehold.co/600x300/3b82f6/ffffff?text=IT+NETWORK+SYSTEM+PREVIEW" class="w-full rounded-xl object-cover" alt="Preview System">
+                <div class="space-y-3 text-sm sm:text-base">
+                    <p class="text-slate-600 dark:text-slate-300"><strong class="text-slate-800 dark:text-white">🛠️ เครื่องมือที่ใช้งาน:</strong> HTML5, CSS3, Google Apps Script, Google Sheets Database, Line Notify Integration</p>
+                    <div class="h-px bg-slate-100 dark:bg-slate-800 my-4"></div>
+                    <!-- STAR Section -->
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-900 dark:text-white">การอธิบายผลงานตามกรอบ STAR:</h4>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Situation (สถานการณ์):</strong> การแจ้งพัสดุชำรุดและการบำรุงรักษาในองค์กรเดิมทำบนแผ่นกระดาษ ทำให้สูญหายและติดตามสถานะยากลำบากมาก</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Task (เป้าหมาย):</strong> เพื่อวางระบบไอทีซัพพอร์ตอัตโนมัติที่ช่วยให้ฝ่ายเทคนิคทำงานสะดวกขึ้นและสถิติไม่ตกหล่น</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Action (การดำเนินงาน):</strong> ออกแบบเว็บแอปพลิเคชันจัดการพัสดุคอมพิวเตอร์ออนไลน์โดยใช้ QR Code ติดตั้งประจำห้องปฏิบัติการ เพื่อเปิดให้ผู้ใช้สามารถแจ้งเหตุได้ผ่าน Line Notify ทันที และระบบจะอัปเดตข้อมูลขึ้นคลังกลางโดยอัตโนมัติ</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Result (ผลลัพธ์):</strong> ลดเวลาประสานงานและการซ่อมบำรุงลงถึง 65% คณะกรรมการสามารถตรวจสอบสถานะได้ตลอด 24 ชั่วโมง และข้อมูลพัสดุถูกต้อง 100%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                <button onclick="closeModal('it-system-details')" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs transition-all cursor-pointer">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2 (Academic Services) -->
+    <div id="academic-details" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-950/75 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 max-h-[90vh] flex flex-col transition-all">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">อบรมความปลอดภัยไซเบอร์ในชุมชน</h3>
+                <button onclick="closeModal('academic-details')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <img src="https://placehold.co/600x300/10b981/ffffff?text=DIGITAL+TRAINING+PREVIEW" class="w-full rounded-xl object-cover" alt="Preview Training">
+                <div class="space-y-3 text-sm sm:text-base">
+                    <p class="text-slate-600 dark:text-slate-300"><strong class="text-slate-800 dark:text-white">🛠️ เครื่องมือที่ใช้งาน:</strong> Microsoft PowerPoint, Canva Presentation, Simulated Phishing Platform</p>
+                    <div class="h-px bg-slate-100 dark:bg-slate-800 my-4"></div>
+                    <!-- STAR Section -->
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-900 dark:text-white">การอธิบายผลงานตามกรอบ STAR:</h4>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Situation (สถานการณ์):</strong> ชุมชนและเจ้าหน้าที่สถาบันยังขาดทักษะการแยกแยะลิงก์หลอกลวง (Phishing) และความรู้ตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Task (เป้าหมาย):</strong> อบรมให้เกิดความตระหนักรู้และลดโอกาสการเกิดอาชญากรรมทางออนไลน์อย่างเป็นรูปธรรม</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Action (การดำเนินงาน):</strong> วางแผนร่วมกับสมาคมไอทีจัดทำเนื้อหาบรรยายแบบเข้าใจง่าย และจัดจำลองแคมเปญเมลฟิชชิ่งทดสอบ (Interactive Simulation) เพื่อให้ผู้เข้าร่วมตระหนักถึงวิธีการกรอกข้อมูลอย่างปลอดภัย</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Result (ผลลัพธ์):</strong> มีผู้เข้าร่วมอบรมกว่า 150 ราย อัตราการกดลิงก์หลอกลวงตัวอย่างลดลงเหลือไม่ถึง 5% ในการทดสอบหลังการอบรม และผลประเมินความพึงพอใจการบรรยายเฉลี่ยอยู่ที่ 4.85 จาก 5.00 คะแนน</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                <button onclick="closeModal('academic-details')" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs transition-all cursor-pointer">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3 (Coaching) -->
+    <div id="coaching-details" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-950/75 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 max-h-[90vh] flex flex-col transition-all">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white">ครูที่ปรึกษาและนวัตกรรมไอทีกรีน</h3>
+                <button onclick="closeModal('coaching-details')" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4">
+                <img src="https://placehold.co/600x300/f59e0b/ffffff?text=COACHING+PREVIEW" class="w-full rounded-xl object-cover" alt="Preview Coaching">
+                <div class="space-y-3 text-sm sm:text-base">
+                    <p class="text-slate-600 dark:text-slate-300"><strong class="text-slate-800 dark:text-white">🛠️ เครื่องมือที่ใช้งาน:</strong> Python Software Development, Teachable Machine (Machine Learning Framework)</p>
+                    <div class="h-px bg-slate-100 dark:bg-slate-800 my-4"></div>
+                    <!-- STAR Section -->
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-slate-900 dark:text-white">การอธิบายผลงานตามกรอบ STAR:</h4>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Situation (สถานการณ์):</strong> นักเรียนขาดที่ปรึกษาทางเทคนิคเพื่อปูพื้นฐานการเขียนโมเดลวิเคราะห์ข้อมูลคาร์บอนเครดิตที่มีประโยชน์ในการประกวดนวัตกรรมระดับประเทศ</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Task (เป้าหมาย):</strong> พัฒนาเยาวชนให้มีความรู้พื้นฐานและผลักดันให้ผลงานโครงงานคว้ารางวัลระดับภูมิภาค</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Action (การดำเนินงาน):</strong> สอนการใช้กระบวนการ Design Thinking เพื่อหา Pain Point และฝึกอบรมการใช้งานคลังความรู้โมเดล Machine Learning อย่างง่าย เพื่อให้นักเรียนสามารถวิเคราะห์ภาพขยะและคำนวณคาร์บอนผ่านอินเทอร์เฟสที่เป็นมิตร</p>
+                        <p class="text-slate-600 dark:text-slate-300"><strong>Result (ผลลัพธ์):</strong> ทีมนักเรียนสามารถคว้า **รางวัลชนะเลิศอันดับ 1 ระดับภาคใต้** และต่อยอดโมเดลไปใช้งานในกิจกรรมโรงเรียนคาร์บอนต่ำได้อย่างเห็นผล</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 flex justify-end">
+                <button onclick="closeModal('coaching-details')" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold rounded-xl text-xs transition-all cursor-pointer">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Lightbox Modal -->
+    <div id="cert-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-950/85 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800 p-6 flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-4">
+                <h3 id="cert-modal-title" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white">ใบรับรอง</h3>
+                <button onclick="closeCertModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <img id="cert-modal-img" src="" alt="Certificate" class="w-full rounded-xl object-contain border border-slate-200 dark:border-slate-800 mb-4">
+            <p id="cert-modal-desc" class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 text-center leading-relaxed"></p>
+        </div>
+    </div>
+
+    <!-- PDF / PRINT CV Pre-rendering Modal (Hidden from mainstream scrolling, triggers on command) -->
+    <div id="cv-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-slate-950/85 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
+            <div class="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-800 no-print">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2"><i class="fa-solid fa-file-invoice text-blue-600"></i> ตัวอย่างเอกสาร Resume / CV</h3>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs transition-all cursor-pointer"><i class="fa-solid fa-print"></i> พิมพ์ / เซฟเป็น PDF</button>
+                    <button onclick="closeCVModal()" class="px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-200 rounded-xl text-xs transition-all cursor-pointer"><i class="fa-solid fa-xmark"></i> ปิด</button>
+                </div>
+            </div>
+            
+            <!-- Real CV Rendering Layout optimized for Print -->
+            <div id="cv-print-area" class="bg-white text-slate-950 p-8 rounded-xl font-sans text-sm mt-4 select-none">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                    <!-- CV Sidebar -->
+                    <div class="md:col-span-4 border-r border-slate-200 pr-6 space-y-6">
+                        <div class="text-center md:text-left">
+                            <div class="w-24 h-24 bg-slate-200 rounded-full mx-auto md:mx-0 overflow-hidden mb-4 border border-slate-300">
+                                <img src="https://placehold.co/400x400/3b82f6/ffffff?text=PROFILE" alt="Portrait">
+                            </div>
+                            <h2 class="text-xl font-bold">พุทธิพงษ์ แก้วมณี</h2>
+                            <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">IT Computer Academic</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold border-b border-slate-300 pb-1 mb-2 text-xs uppercase">ติดต่อ</h4>
+                            <p class="text-xs">📞 089-123-4567</p>
+                            <p class="text-xs">✉️ putthipong.k@example.com</p>
+                            <p class="text-xs">🌐 yourname.github.io</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold border-b border-slate-300 pb-1 mb-2 text-xs uppercase">ความเชี่ยวชาญพิเศษ</h4>
+                            <ul class="text-[11px] list-disc list-inside space-y-1">
+                                <li>IT Support & Troubleshooting</li>
+                                <li>HTML / CSS / JS Development</li>
+                                <li>Database & Excel Automation</li>
+                                <li>AI Classroom Integration</li>
+                                <li>PDPA & Data Protection</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- CV Main Content -->
+                    <div class="md:col-span-8 space-y-6 text-slate-900">
+                        <div>
+                            <h3 class="text-base font-bold uppercase tracking-wider border-b-2 border-slate-900 pb-1 mb-3">เป้าหมายทางวิชาชีพ</h3>
+                            <p class="text-xs leading-relaxed text-slate-700">
+                                มุ่งมั่นในการนำทักษะทางวิชาการคอมพิวเตอร์ เทคโนโลยีอัตโนมัติ และนวัตกรรมการศึกษามาส่งต่อ ถ่ายทอด และพัฒนาโครงสร้างหลังบ้านขององค์กรให้ง่าย มีประสิทธิภาพสูงสุด ตลอดจนยกระดับผู้เรียนด้านไอที
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold uppercase tracking-wider border-b-2 border-slate-900 pb-1 mb-3">ประสบการณ์และการเรียนรู้</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-bold text-xs">ครูที่ปรึกษา & นักพัฒนานวัตกรรม | รางวัลระดับภาค (2024 - ปัจจุบัน)</h4>
+                                    <p class="text-[11px] text-slate-500">สถานศึกษาเทคโนโลยีอัจฉริยะ</p>
+                                    <p class="text-xs text-slate-700 mt-1 leading-relaxed">
+                                        - ควบคุมทีมนักเรียนเข้าชิงนวัตกรรม AI แยกแยะวัสดุคาร์บอนต่ำ ได้รับรางวัลชนะเลิศระดับภาคใต้<br>
+                                        - เขียนบอร์ดสมองกลเพื่อทดลองใช้งานจริงในห้องเรียนดิจิทัล
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xs">วิทยากรอบรมและดูแลเครือข่ายไอทีภายใน (2023 - 2024)</h4>
+                                    <p class="text-[11px] text-slate-500">โครงการส่งเสริมไอทีชุมชน</p>
+                                    <p class="text-xs text-slate-700 mt-1 leading-relaxed">
+                                        - จัดอบรมทักษะความปลอดภัยเครือข่ายและข้อกฎหมาย PDPA แก่บุคลากรภาครัฐและเอกชนกว่า 150 ราย<br>
+                                        - พัฒนาระบบทะเบียนรับแจ้งพัสดุผ่าน LINE ซ่อมเสร็จเร็วขึ้น 65%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold uppercase tracking-wider border-b-2 border-slate-900 pb-1 mb-3">ประวัติการศึกษา</h3>
+                            <p class="text-xs"><strong>วิทยาศาสตรบัณฑิต (วิทยาการคอมพิวเตอร์)</strong> • มหาวิทยาลัยเทคโนโลยีชั้นนำ (2023 - ปัจจุบัน)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">ช่องทางการติดต่อ & นัดสัมภาษณ์งาน</h2>
+                <div class="h-1.5 w-16 bg-blue-600 mx-auto mt-4 rounded-full theme-bg"></div>
+                <p class="mt-4 text-slate-600 dark:text-slate-400">ยินดีรับข้อคิดเห็น ข้อสงสัย หรือแจ้งหมายนัดสัมภาษณ์ผ่านฟอร์มส่งข้อมูลด่วนนี้ได้ทันทีครับ</p>
+            </div>
+
+            <!-- Custom Interactive Success Toast (Avoiding window.alert) -->
+            <div id="toast-success" class="hidden transform translate-y-2 opacity-0 transition-all duration-300 bg-emerald-500 text-white px-6 py-4 rounded-2xl shadow-lg mb-8 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-circle-check text-xl"></i>
+                    <div>
+                        <span class="font-bold block text-sm sm:text-base">ส่งข้อมูลเรียบร้อย!</span>
+                        <span class="text-xs opacity-90">ขอขอบคุณคณะกรรมการเป็นอย่างสูงครับ ระบบได้บันทึกการติดต่อเพื่อดำเนินการตอบกลับในทันทีครับ</span>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('toast-success').classList.add('hidden')" class="text-white hover:text-emerald-100 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form id="portfolio-contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">ชื่อผู้ติดต่อ / ตัวแทนองค์กรผู้ประเมิน</label>
+                        <input type="text" id="name" required class="mt-1.5 block w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">ที่อยู่อีเมลติดต่อกลับ</label>
+                        <input type="email" id="email" required class="mt-1.5 block w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label for="message" class="block text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">ข้อความชี้แจง / รายละเอียดสัมภาษณ์เพิ่มเติม</label>
+                    <textarea id="message" rows="4" required class="mt-1.5 block w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none" placeholder="โปรดเขียนระบุประเด็นข้อคิดเห็นหรือข้อซักถามที่นี่ได้ทันที..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-blue-500/20 transition-all hover:-translate-y-0.5 theme-btn cursor-pointer">
+                        ส่งคำขอนัดสัมภาษณ์ <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Quick Contact Badge Footer -->
+            <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center border-t border-slate-100 dark:border-slate-900 pt-8">
+                <div>
+                    <span class="text-slate-400 block text-xs uppercase">สายตรง</span>
+                    <span class="font-bold text-slate-800 dark:text-slate-200 text-sm">089-123-4567</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block text-xs uppercase">อีเมลทางการ</span>
+                    <span class="font-bold text-slate-800 dark:text-slate-200 text-sm">putthipong.k@example.com</span>
+                </div>
+                <div>
+                    <span class="text-slate-400 block text-xs uppercase">แหล่งเก็บโค้ดพอร์ต</span>
+                    <a href="https://github.com" target="_blank" class="font-bold text-blue-600 dark:text-blue-400 text-sm hover:underline flex items-center justify-center gap-1">github.com/putthipong <i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 dark:bg-slate-950 text-slate-400 py-12 border-t border-slate-800 dark:border-slate-900">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs sm:text-sm">© 2026 Interactive Portfolio Website. พัฒนาขึ้นอย่างประณีตเพื่อการสอบสัมภาษณ์.</p>
+            <p class="text-[10px] text-slate-500 mt-2 leading-relaxed">จัดทำหน้าจอแบบตอบสนองด้วย Tailwind CSS เพื่อรับประกันการแสดงผลในทุกดีไวซ์</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 2. Dark/Light Mode Management
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const darkIcons = [document.getElementById('dark-icon'), document.getElementById('dark-icon-mobile')];
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                darkIcons.forEach(icon => {
+                    icon.className = 'fa-solid fa-moon text-lg text-slate-600';
+                });
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                darkIcons.forEach(icon => {
+                    icon.className = 'fa-solid fa-sun text-lg text-amber-500';
+                });
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const darkIcons = [document.getElementById('dark-icon'), document.getElementById('dark-icon-mobile')];
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            darkIcons.forEach(icon => { icon.className = 'fa-solid fa-sun text-lg text-amber-500'; });
+        } else {
+            document.documentElement.classList.remove('dark');
+            darkIcons.forEach(icon => { icon.className = 'fa-solid fa-moon text-lg text-slate-600'; });
+        }
+
+        // 3. Dynamic Interactive Skill Showcase
+        const skillDetails = {
+            db: {
+                title: "งานฐานข้อมูลและระบบสคริปต์อัตโนมัติ (Database & Sheets Scripting)",
+                desc: "ผมได้พัฒนาแนวทางในการเชื่อมโยงข้อมูลจากคลัง Google Sheets ร่วมกับระบบหลังบ้านเพื่อจำลองรายงานพัสดุและวิเคราะห์ความสมบูรณ์แบบเรียลไทม์ พร้อมประยุกต์ SQL ในการจัดการความปลอดภัยโครงสร้างระบบพื้นฐานอย่างเป็นระเบียบ",
+                icon: "fa-database"
+            },
+            network: {
+                title: "ระบบเครือข่ายและการแก้ไขปัญหาฮาร์ดแวร์ (Network & IT Support)",
+                desc: "รับมือกับการดูแล จัดเตรียมระบบเครือข่ายอินเทอร์เน็ตภายในห้องปฏิบัติการ วิเคราะห์สัญญาณที่สะดุดหรือช้า แก้ไขฮาร์ดแวร์และอุปกรณ์ต่อพ่วงอย่างทันท่วงที ตรวจเช็กระบบเซิร์ฟเวอร์ย่อยให้ทำงานราบรื่นสม่ำเสมอ",
+                icon: "fa-server"
+            },
+            innovation: {
+                title: "นวัตกรรมและปัญญาประดิษฐ์ทางการเรียนรู้ (Digital Innovation & AI Classroom)",
+                desc: "ออกแบบสื่อและเครื่องมือไอทีเชิงสร้างสรรค์ นำเครื่องมือปัญญาประดิษฐ์ (AI Tools) เช่น Teachable Machine ของ Google เข้าไปจัดแสดงและบูรณาการให้นักเรียนเข้าใจกลไก Machine Learning ได้ง่ายๆ ทะลุมิติเดิม",
+                icon: "fa-lightbulb"
+            }
+        };
+
+        function showSkillExplanation(category) {
+            const detailBox = document.getElementById('skill-explanation-box');
+            const iconTarget = document.getElementById('skill-icon-target');
+            const titleTarget = document.getElementById('skill-title-target');
+            const descTarget = document.getElementById('skill-desc-target');
+
+            const info = skillDetails[category];
+            if (!info) return;
+
+            titleTarget.innerText = info.title;
+            descTarget.innerText = info.desc;
+            iconTarget.className = `fa-solid ${info.icon}`;
+            detailBox.classList.remove('hidden');
+        }
+
+        // 4. Color Swapping Logic
+        const themeConfigs = {
+            blue: {
+                primary: 'bg-blue-600',
+                text: 'text-blue-600',
+                hover: 'hover:bg-blue-700',
+                gradient: 'from-blue-600 to-indigo-600',
+                badgeBg: 'bg-blue-100',
+                badgeText: 'text-blue-800',
+            },
+            emerald: {
+                primary: 'bg-emerald-600',
+                text: 'text-emerald-600',
+                hover: 'hover:bg-emerald-700',
+                gradient: 'from-emerald-600 to-teal-600',
+                badgeBg: 'bg-emerald-100',
+                badgeText: 'text-emerald-800',
+            },
+            amber: {
+                primary: 'bg-amber-500',
+                text: 'text-amber-500',
+                hover: 'hover:bg-amber-600',
+                gradient: 'from-amber-500 to-orange-500',
+                badgeBg: 'bg-amber-100',
+                badgeText: 'text-amber-800',
+            },
+            rose: {
+                primary: 'bg-rose-600',
+                text: 'text-rose-600',
+                hover: 'hover:bg-rose-700',
+                gradient: 'from-rose-600 to-pink-600',
+                badgeBg: 'bg-rose-100',
+                badgeText: 'text-rose-800',
+            }
+        };
+
+        function setTheme(themeName) {
+            const config = themeConfigs[themeName];
+            if (!config) return;
+
+            document.querySelectorAll('.theme-bg').forEach(el => {
+                el.className = el.className.replace(/bg-\w+-\d+/g, '');
+                el.classList.add(config.primary);
+            });
+
+            document.querySelectorAll('.theme-text').forEach(el => {
+                if (el.className.includes('bg-clip-text')) {
+                    el.className = el.className.replace(/from-\w+-\d+ to-\w+-\d+/g, '');
+                    el.classList.add(`from-${themeName === 'amber' ? 'amber-500' : themeName + '-600'}`);
+                    el.classList.add(`to-${themeName === 'amber' ? 'orange-500' : (themeName === 'blue' ? 'indigo' : 'teal') + '-600'}`);
+                } else {
+                    el.className = el.className.replace(/text-\w+-\d+/g, '');
+                    el.classList.add(config.text);
+                }
+            });
+
+            document.querySelectorAll('.theme-btn').forEach(el => {
+                el.className = el.className.replace(/bg-\w+-\d+/g, '').replace(/hover:bg-\w+-\d+/g, '');
+                el.classList.add(config.primary);
+                el.classList.add(config.hover);
+            });
+
+            document.querySelectorAll('.theme-badge').forEach(el => {
+                el.className = el.className.replace(/bg-\w+-\d+/g, '').replace(/text-\w+-\d+/g, '');
+                el.classList.add(config.badgeBg);
+                el.classList.add(config.badgeText);
+            });
+        }
+
+        // 5. Project Grid Filter Logic
+        function filterProjects(category) {
+            const buttons = document.querySelectorAll('.project-filter-btn');
+            buttons.forEach(btn => {
+                btn.className = "project-filter-btn px-4 py-2 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full font-semibold text-xs transition-all cursor-pointer";
+            });
+
+            event.target.className = "project-filter-btn px-4 py-2 bg-blue-600 text-white rounded-full font-semibold text-xs shadow-md transition-all cursor-pointer theme-btn";
+
+            const cards = document.querySelectorAll('.project-card-item');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // 6. Modal Pop-up Control
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 7. Certificate Lightbox Modal Actions
+        function openCertModal(title, imgSrc, description) {
+            const modal = document.getElementById('cert-modal');
+            document.getElementById('cert-modal-title').innerText = title;
+            document.getElementById('cert-modal-img').src = imgSrc;
+            document.getElementById('cert-modal-desc').innerText = description;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertModal() {
+            document.getElementById('cert-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 8. CV Modal Control
+        function openCVModal() {
+            const modal = document.getElementById('cv-preview-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCVModal() {
+            const modal = document.getElementById('cv-preview-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 9. Interactive Simulated Typewriter Effect
+        const words = ["นักวิชาการคอมพิวเตอร์ดิจิทัล", "นักพัฒนานวัตกรรมการเรียนรู้ยุคใหม่", "ผู้ดูแลวิเคราะห์ระบบเครือข่าย & ไอทีซัพพอร์ต", "วิทยากรบรรยายเทคโนโลยีระดับชุมชน"];
+        let wordIndex = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[wordIndex].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('typewriter').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2500);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[wordIndex].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('typewriter').innerHTML = word.join("");
+                } else {
+                    if (words.length > (wordIndex + 1)) {
+                        wordIndex++;
+                    } else {
+                        wordIndex = 0;
+                    }
+                    setTimeout(typingEffect, 500);
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+
+        window.onload = function() {
+            typingEffect();
+        };
+
+        // 10. Contact Form simulated Submission Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const toast = document.getElementById('toast-success');
+            
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-2');
+            }, 10);
+
+            document.getElementById('portfolio-contact-form').reset();
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 300);
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
